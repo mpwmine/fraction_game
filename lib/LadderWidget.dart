@@ -78,7 +78,7 @@ class _LadderWidgetState extends State<LadderWidget> with SingleTickerProviderSt
   }
 
   int _posMap(int pos) {
-    return pow( 10, (pos/3).floor()+1).floor() * [ 10,25, 50][pos%3];
+    return pow( 10, (pos/9).floor()+1).floor() * [25, 50, 75, 100, 125, 150, 175, 200, 225][pos%9];
   }
 }
 

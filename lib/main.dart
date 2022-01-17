@@ -264,10 +264,10 @@ class _FractionGamePageState extends State<FractionGamePage> {
   }
 
   void _checkAnswer() {
-    setState(() {
-      useKeys = false;
-    });
     if (answerNumerator.isNotEmpty && answerDenominator.isNotEmpty) {
+      setState(() {
+        useKeys = false;
+      });
       if (question.answer.numerator == int.parse(answerNumerator) &&
           question.answer.denominator == int.parse(answerDenominator)) {
         setState(() {
