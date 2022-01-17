@@ -82,11 +82,11 @@ class _LadderWidgetState extends State<LadderWidget> with SingleTickerProviderSt
                           children: [
                             Transform.translate(
                               offset: Offset(-20.0,0),
-                              child: Icon(Icons.chevron_right, color: Colors.red, size: 80.0,),
+                              child: Icon(Icons.chevron_right, color: Colors.red, size: 60.0,),
                             ),
                             Transform.translate(
                               offset: Offset(20.0,0),
-                              child: Icon(Icons.chevron_left, color: Colors.red, size: 80.0,),
+                              child: Icon(Icons.chevron_left, color: Colors.red, size: 60.0,),
                             ),
                           ],
                         )

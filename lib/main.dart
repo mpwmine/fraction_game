@@ -87,155 +87,157 @@ class _FractionGamePageState extends State<FractionGamePage> {
   Widget build(BuildContext context) {
       final theme = Theme.of(context);
     return Scaffold(
-      body: Container(
-        child: Column(
-          children: [
-            Container(
-              margin: const EdgeInsets.only(top: 10.0, left: 10.0, right: 10.0),
-              padding: EdgeInsets.all(10),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(15.0),
-                border: Border.all(
-                  color: Colors.white,
-                  width: 5.0,
-                )
-              ),
-              child: Center(
-                child: Text('Fraction Game', style: theme.textTheme.headline2,),
-              ),
-            ),
-            Expanded(
-                child: Row(
-                  children: [
-                    Expanded( // Left Column
-                      child: Container(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: [
-                            Column(
-                              children: [
-                                Text('Lives', style: theme.textTheme.headline4,),
-                                Text(numberOfLives.toString(), style: theme.textTheme.headline4,)
-                              ],
-                            ),
-                            Column(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                Text(question is FractionConvertQuestion ? 'Simplify:' : 'Solve:', style: theme.textTheme.headline4,),
-                                FractionQuestionWidget(
-                                  question: question,
-                                ),
-                              ],
-                            ),
-                            Container(
-                              child: Row(
-                                children: [
-                                  Expanded(child: Container()),
-                                  Expanded(
-                                    child: SizedBox(
-                                      height: 100.0,
-                                      child: ElevatedButton(
-                                        style: ButtonStyle(
-                                            shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                                                RoundedRectangleBorder(
-                                                    borderRadius: BorderRadius.circular(18.0),
-                                                    side: BorderSide(color: Colors.red)
-                                                )
-                                            )
-                                        ),
-                                        onPressed: useKeys ? _checkAnswer : null,
-                                        child: Text('Enter', style: theme.textTheme.headline4,),
-                                      ),
-                                    ),
-                                  ),
-                                  Expanded(child: Container()),
-                                ],
-                              ),
-                            )
-                          ],
-                        ),
-                      ),
-                      flex: 2,
-                    ),
-                    Expanded(  //Center Column
-                      child: Container(
-                        child: LadderWidget(
-                          combo: combo,
-                          rungBuilder: (context, value) {
-                            return LadderRung( value );
-                          },
-                          pos: score,
-                        ),
-                      ),
-                      flex: 1,
-                    ),
-                    SizedBox(
-                      width: 30.0,
-                      child: Container(
-
-                      ),
-                    ),
-                    Expanded( //Right Column
-                      child: Container(
-                        padding: EdgeInsets.only(bottom: 10.0, right: 10.0),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.symmetric(vertical: 10.0),
-                                  child: Text('Q${questionCount}', style: theme.textTheme.headline6,),
-                                ),
-                              ],
-                            ),
-                            Expanded(
-                              child: Container(
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Row(
-                                      children: [
-                                         FractionWidget(
-                                           numerator: answerNumerator == '' ? null : int.parse(answerNumerator),
-                                           denominator: answerDenominator == '' ? null : int.parse(answerDenominator),
-                                           color: answerError ? Colors.red : null
-                                         )
-                                      ],
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                            KeypadWidget(
-                              onPressed: useKeys ? _keyPressed : null,
-                            )
-                          ],
-                        ),
-                      ),
-                      flex: 2,
-                    ),
-
-                  ],
-                )
-            ),
-            Container(
-              margin: const EdgeInsets.only(bottom: 10.0, left: 10.0, right: 10.0),
-              padding: EdgeInsets.all(10),
-              decoration: BoxDecoration(
+      body: SafeArea(
+        child: Container(
+          child: Column(
+            children: [
+              Container(
+                margin: const EdgeInsets.only(top: 10.0, left: 10.0, right: 10.0),
+                padding: EdgeInsets.all(10),
+                decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(15.0),
                   border: Border.all(
                     color: Colors.white,
                     width: 5.0,
                   )
+                ),
+                child: Center(
+                  child: Text('Fraction Game', style: theme.textTheme.headline2,),
+                ),
               ),
-              child: Center(
-                child: Text('Combo $combo', style: theme.textTheme.headline4,),
+              Expanded(
+                  child: Row(
+                    children: [
+                      Expanded( // Left Column
+                        child: Container(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              Column(
+                                children: [
+                                  Text('Lives', style: theme.textTheme.headline4,),
+                                  Text(numberOfLives.toString(), style: theme.textTheme.headline4,)
+                                ],
+                              ),
+                              Column(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Text(question is FractionConvertQuestion ? 'Simplify:' : 'Solve:', style: theme.textTheme.headline4,),
+                                  FractionQuestionWidget(
+                                    question: question,
+                                  ),
+                                ],
+                              ),
+                              Container(
+                                child: Row(
+                                  children: [
+                                    Expanded(child: Container()),
+                                    Expanded(
+                                      child: SizedBox(
+                                        height: 100.0,
+                                        child: ElevatedButton(
+                                          style: ButtonStyle(
+                                              shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                                                  RoundedRectangleBorder(
+                                                      borderRadius: BorderRadius.circular(18.0),
+                                                      side: BorderSide(color: Colors.red)
+                                                  )
+                                              )
+                                          ),
+                                          onPressed: useKeys ? _checkAnswer : null,
+                                          child: Text('Enter', style: theme.textTheme.headline4,),
+                                        ),
+                                      ),
+                                    ),
+                                    Expanded(child: Container()),
+                                  ],
+                                ),
+                              )
+                            ],
+                          ),
+                        ),
+                        flex: 2,
+                      ),
+                      Expanded(  //Center Column
+                        child: Container(
+                          child: LadderWidget(
+                            combo: combo,
+                            rungBuilder: (context, value) {
+                              return LadderRung( value );
+                            },
+                            pos: score,
+                          ),
+                        ),
+                        flex: 1,
+                      ),
+                      SizedBox(
+                        width: 30.0,
+                        child: Container(
+
+                        ),
+                      ),
+                      Expanded( //Right Column
+                        child: Container(
+                          padding: EdgeInsets.only(bottom: 10.0, right: 10.0),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(vertical: 10.0),
+                                    child: Text('Q${questionCount}', style: theme.textTheme.headline6,),
+                                  ),
+                                ],
+                              ),
+                              Expanded(
+                                child: Container(
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Row(
+                                        children: [
+                                           FractionWidget(
+                                             numerator: answerNumerator == '' ? null : int.parse(answerNumerator),
+                                             denominator: answerDenominator == '' ? null : int.parse(answerDenominator),
+                                             color: answerError ? Colors.red : null
+                                           )
+                                        ],
+                                        mainAxisAlignment: MainAxisAlignment.center,
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                              KeypadWidget(
+                                onPressed: useKeys ? _keyPressed : null,
+                              )
+                            ],
+                          ),
+                        ),
+                        flex: 2,
+                      ),
+
+                    ],
+                  )
               ),
-            ),
-          ],
+              Container(
+                margin: const EdgeInsets.only(bottom: 10.0, left: 10.0, right: 10.0),
+                padding: EdgeInsets.all(10),
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(15.0),
+                    border: Border.all(
+                      color: Colors.white,
+                      width: 5.0,
+                    )
+                ),
+                child: Center(
+                  child: Text('Combo $combo', style: theme.textTheme.headline4,),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -299,11 +301,13 @@ class _FractionGamePageState extends State<FractionGamePage> {
           answerNumerator = question.answer.numerator.toString();
           answerDenominator = question.answer.denominator.toString();
         });
-        Timer(Duration(seconds: 1), () {
-          setState(() {
-            _resetNewQuestion();
+        if(numberOfLives>0) {
+          Timer(Duration(seconds: 1), () {
+            setState(() {
+              _resetNewQuestion();
+            });
           });
-        });
+        }
       }
     }
   }
@@ -623,7 +627,7 @@ class KeypadKeyWidget extends StatelessWidget {
             color: theme.textTheme.headline3?.color ?? Colors.white,
           )
         ),
-        padding: EdgeInsets.all(15.0),
+        padding: EdgeInsets.all(10.0),
         margin: EdgeInsets.all(5.0),
         child: Center(
           child: Text(
