@@ -15,7 +15,7 @@ class FractionGameApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Limitless Fractions',
       theme: ThemeData(
         // This is the theme of your application.
         //
@@ -62,6 +62,8 @@ class _FractionGamePageState extends State<FractionGamePage> {
   bool workingOnNumerator = true;
   int score = 0;
   bool useKeys = true, answerError = false;
+  int combo = 1;
+  int questionCount = 0;
 
   @override
   void initState() {
@@ -78,6 +80,7 @@ class _FractionGamePageState extends State<FractionGamePage> {
     }else{
       question = FractionSumQuestion.generateRandom();
     }
+    questionCount ++;
   }
 
   @override
@@ -157,6 +160,7 @@ class _FractionGamePageState extends State<FractionGamePage> {
                     Expanded(  //Center Column
                       child: Container(
                         child: LadderWidget(
+                          combo: combo,
                           rungBuilder: (context, value) {
                             return LadderRung( value );
                           },
@@ -177,6 +181,15 @@ class _FractionGamePageState extends State<FractionGamePage> {
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(vertical: 10.0),
+                                  child: Text('Q${questionCount}', style: theme.textTheme.headline6,),
+                                ),
+                              ],
+                            ),
                             Expanded(
                               child: Container(
                                 child: Column(
@@ -219,7 +232,7 @@ class _FractionGamePageState extends State<FractionGamePage> {
                   )
               ),
               child: Center(
-                child: Text('Fraction Game', style: theme.textTheme.headline4,),
+                child: Text('Combo $combo', style: theme.textTheme.headline4,),
               ),
             ),
           ],
@@ -271,12 +284,17 @@ class _FractionGamePageState extends State<FractionGamePage> {
       if (question.answer.numerator == int.parse(answerNumerator) &&
           question.answer.denominator == int.parse(answerDenominator)) {
         setState(() {
-          score += 1;
+          score += combo;
+          combo ++;
+          if(combo > 3) {
+            combo = 3;
+          }
           _resetNewQuestion();
         });
       } else {
         setState(() {
           numberOfLives -= 1;
+          combo = 1;
           answerError = true;
           answerNumerator = question.answer.numerator.toString();
           answerDenominator = question.answer.denominator.toString();

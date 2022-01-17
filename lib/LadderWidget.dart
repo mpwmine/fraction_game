@@ -1,15 +1,13 @@
-import 'dart:html';
-import 'dart:math';
-
 import 'package:flutter/material.dart';
-
+import 'dart:math' as Math;
 
 class LadderWidget extends StatefulWidget {
   int displayRungs;
   int pos;
+  int? combo;
   LadderRung Function(BuildContext context, int value) rungBuilder;
 
-  LadderWidget({this.displayRungs=8, this.pos=0, required this.rungBuilder});
+  LadderWidget({this.displayRungs=8, this.pos=0, required this.rungBuilder, this.combo});
 
   @override
   _LadderWidgetState createState() => _LadderWidgetState();
@@ -69,7 +67,53 @@ class _LadderWidgetState extends State<LadderWidget> with SingleTickerProviderSt
                     ],
                   ),
                 ),
-              )
+              ),
+              Positioned(
+                  bottom: 0.0,
+                  left: 0.0,
+                  child: SizedBox(
+                    height: rungHeight,
+                    width: box.maxWidth,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Transform.translate(
+                              offset: Offset(-20.0,0),
+                              child: Icon(Icons.chevron_right, color: Colors.red, size: 80.0,),
+                            ),
+                            Transform.translate(
+                              offset: Offset(20.0,0),
+                              child: Icon(Icons.chevron_left, color: Colors.red, size: 80.0,),
+                            ),
+                          ],
+                        )
+                      ],
+                    ),
+                  )
+              ),
+              if(widget.combo != null)
+                Positioned(
+                    bottom: rungHeight * (widget.combo??1 - 1),
+                    left: 0.0,
+                    child: SizedBox(
+                      height: rungHeight,
+                      width: box.maxWidth,
+                      child: Container(
+                        decoration: const BoxDecoration(
+                          border: Border(
+                            top: BorderSide(
+                              color: Colors.green,
+                              width: 8.0
+                            )
+                          )
+                        ),
+                      ),
+                    )
+                ),
+
             ],
           );
 
@@ -78,7 +122,7 @@ class _LadderWidgetState extends State<LadderWidget> with SingleTickerProviderSt
   }
 
   int _posMap(int pos) {
-    return pow( 10, (pos/9).floor()+1).floor() * [25, 50, 75, 100, 125, 150, 175, 200, 225][pos%9];
+    return pos > 0 ? Math.pow( 10, ((pos-1)/9).floor()+1).floor() * [25, 50, 75, 100, 125, 150, 175, 200, 225][(pos-1)%9] : 0;
   }
 }
 
@@ -104,7 +148,7 @@ class LadderRung extends StatelessWidget {
         )
       ),
       child: Center(
-        child: Text( label.toString(), style: theme.textTheme.headline4, ),
+        child: Text( label.toString(), style: theme.textTheme.headline5, ),
       ),
     );
   }
