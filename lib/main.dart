@@ -57,7 +57,7 @@ class FractionGamePage extends StatefulWidget {
 class _FractionGamePageState extends State<FractionGamePage> {
   FractionQuestion question = FractionSumQuestion(operation: FractionOperation.DIVIDE, aDenominator: 2, aNumerator: 1, bDenominator: 4, bNumerator: 1);
  // FractionQuestion question = FractionConvertQuestion(aDenominator: 2, aNumerator: 1, wholeNumber: 4);
-  int numberOfLives = 1;
+  int numberOfLives = 10;
   String answerNumerator = '';
   String answerDenominator = '';
   bool workingOnNumerator = true;
@@ -67,7 +67,7 @@ class _FractionGamePageState extends State<FractionGamePage> {
   int questionCount = 0;
 
   void _resetGame() {
-    numberOfLives = 1;
+    numberOfLives = 10;
     combo = 1;
     score = 0;
     questionCount = 0;
