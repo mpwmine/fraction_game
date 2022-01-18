@@ -11,6 +11,10 @@ class LadderWidget extends StatefulWidget {
 
   @override
   _LadderWidgetState createState() => _LadderWidgetState();
+
+  static int posMap(int pos) {
+    return pos > 0 ? Math.pow( 10, ((pos-1)/9).floor()+1).floor() * [25, 50, 75, 100, 125, 150, 175, 200, 225][(pos-1)%9] : 0;
+  }
 }
 
 class _LadderWidgetState extends State<LadderWidget> with SingleTickerProviderStateMixin {
@@ -61,7 +65,7 @@ class _LadderWidgetState extends State<LadderWidget> with SingleTickerProviderSt
                     mainAxisSize: MainAxisSize.max,
                     children: [
                       for(int i=widget.displayRungs; i>=0; i--)
-                        Expanded(child: widget.rungBuilder(context, _posMap(i+pos))),
+                        Expanded(child: widget.rungBuilder(context, LadderWidget.posMap(i+pos))),
                       for(var i=0; i < ((pos<0)?-pos:0); i++)
                         Expanded(child: Container()),
                     ],
@@ -121,9 +125,6 @@ class _LadderWidgetState extends State<LadderWidget> with SingleTickerProviderSt
     );
   }
 
-  int _posMap(int pos) {
-    return pos > 0 ? Math.pow( 10, ((pos-1)/9).floor()+1).floor() * [25, 50, 75, 100, 125, 150, 175, 200, 225][(pos-1)%9] : 0;
-  }
 }
 
 class LadderRung extends StatelessWidget {

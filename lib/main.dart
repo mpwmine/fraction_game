@@ -57,7 +57,7 @@ class FractionGamePage extends StatefulWidget {
 class _FractionGamePageState extends State<FractionGamePage> {
   FractionQuestion question = FractionSumQuestion(operation: FractionOperation.DIVIDE, aDenominator: 2, aNumerator: 1, bDenominator: 4, bNumerator: 1);
  // FractionQuestion question = FractionConvertQuestion(aDenominator: 2, aNumerator: 1, wholeNumber: 4);
-  int numberOfLives = 10;
+  int numberOfLives = 1;
   String answerNumerator = '';
   String answerDenominator = '';
   bool workingOnNumerator = true;
@@ -65,6 +65,14 @@ class _FractionGamePageState extends State<FractionGamePage> {
   bool useKeys = true, answerError = false;
   int combo = 1;
   int questionCount = 0;
+
+  void _resetGame() {
+    numberOfLives = 1;
+    combo = 1;
+    score = 0;
+    questionCount = 0;
+    _resetNewQuestion();
+  }
 
   @override
   void initState() {
@@ -308,6 +316,18 @@ class _FractionGamePageState extends State<FractionGamePage> {
           Timer(Duration(seconds: 1), () {
             setState(() {
               _resetNewQuestion();
+            });
+          });
+        }else {
+          Timer(Duration(seconds: 3), () async
+          {
+            await showDialog(
+                context: context,
+                builder: (context) {
+                  return GameOverDialog(LadderWidget.posMap(score));
+                });
+            setState(() {
+              _resetGame();
             });
           });
         }
@@ -639,6 +659,43 @@ class KeypadKeyWidget extends StatelessWidget {
           ),
         ),
       ),
+    );
+  }
+}
+
+class GameOverDialog extends StatelessWidget {
+  final int finalScore;
+
+  GameOverDialog(this.finalScore);
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    return SimpleDialog(
+      children: [
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(18.0),
+              child: Text('Game Over!', style: theme.primaryTextTheme.headline2,),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(28.0),
+              child: Text('Your final score was $finalScore', style: theme.primaryTextTheme.headline5,),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(top: 18.0),
+              child: ElevatedButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: Text('Start over', style: theme.textTheme.headline5,)
+              ),
+            )
+          ],
+        )
+      ],
     );
   }
 }
