@@ -15,6 +15,7 @@ class FractionGameApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Limitless Fractions',
       theme: ThemeData(
         // This is the theme of your application.
@@ -130,26 +131,28 @@ class _FractionGamePageState extends State<FractionGamePage> {
                               ),
                               Container(
                                 child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    Expanded(child: Container()),
-                                    Expanded(
-                                      child: SizedBox(
-                                        height: 100.0,
-                                        child: ElevatedButton(
-                                          style: ButtonStyle(
-                                              shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                                                  RoundedRectangleBorder(
-                                                      borderRadius: BorderRadius.circular(18.0),
-                                                      side: BorderSide(color: Colors.red)
-                                                  )
-                                              )
-                                          ),
-                                          onPressed: useKeys ? _checkAnswer : null,
-                                          child: Text('Enter', style: theme.textTheme.headline4,),
+                                    ConstrainedBox(
+                                      constraints: const BoxConstraints(
+                                        maxHeight: 100.0,
+                                        minHeight: 80.0,
+                                        minWidth: 200.0,
+                                        maxWidth: 300.0
+                                      ),
+                                      child: ElevatedButton(
+                                        style: ButtonStyle(
+                                            shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                                                RoundedRectangleBorder(
+                                                    borderRadius: BorderRadius.circular(18.0),
+                                                    side: BorderSide(color: Colors.red)
+                                                )
+                                            )
                                         ),
+                                        onPressed: useKeys ? _checkAnswer : null,
+                                        child: Text('Enter', style: theme.textTheme.headline4,),
                                       ),
                                     ),
-                                    Expanded(child: Container()),
                                   ],
                                 ),
                               )

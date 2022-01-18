@@ -81,12 +81,12 @@ class _LadderWidgetState extends State<LadderWidget> with SingleTickerProviderSt
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Transform.translate(
-                              offset: Offset(-20.0,0),
-                              child: Icon(Icons.chevron_right, color: Colors.red, size: 60.0,),
+                              offset: Offset(-14.0,0),
+                              child: Icon(Icons.keyboard_arrow_right, color: Colors.red, size: 60.0,),
                             ),
                             Transform.translate(
-                              offset: Offset(20.0,0),
-                              child: Icon(Icons.chevron_left, color: Colors.red, size: 60.0,),
+                              offset: Offset(14.0,0),
+                              child: Icon(Icons.keyboard_arrow_left, color: Colors.red, size: 60.0,),
                             ),
                           ],
                         )
